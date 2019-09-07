@@ -1,8 +1,0 @@
-2019-09-05T22:27:30.064Z - info: Starting App
-2019-09-05T22:27:41.944Z - info: Initializing Audo Updater
-2019-09-05T22:27:41.962Z - info: Setting AUTO UPDATE URL to http://ot-app-releases-2.herokuapp.com?version=2.5.2
-2019-09-05T22:27:41.962Z - info: Auto updating is enabled, checking for updates
-2019-09-05T22:27:42.017Z - info: Checking for update
-2019-09-05T22:27:43.017Z - info: Loading App UI at http://127.0.0.1:31950/
-2019-09-05T22:27:43.132Z - info: Dispatched .loadURL call
-2019-09-05T22:27:47.754Z - info: Update not available
