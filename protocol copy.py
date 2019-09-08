@@ -2,8 +2,6 @@
 from opentrons import robot, instruments, containers
 from opentrons.util.vector import Vector
 from time import sleep
-import matplotlib.pyplot as plt
-import numpy as np
 
 robot.connect(robot.get_serial_ports_list()[0])
 robot.home()
@@ -44,23 +42,26 @@ pipette = instruments.Pipette(
 		trash_container = trash[0]
 )
 # Define Custom Protocol
-i = 0
-rad = 43.2
-num = 20
-t = np.random.uniform(0.0, 2.0*np.pi, num)
-r = rad * np.sqrt(np.random.uniform(0.0, 1.0, num))
-x = r * np.cos(t)
-y = r*np.sin(t)
+cycles = int(input('How many cycles would you like to run ? '))
+delay_between_cylces = int(input('How much delay between a cycle (in seconds) ? '))
 
-while i < 3:
-	pipette.pick_up_tip(rack.wells(i))
-	for x1, y1 in x, y:
-		pipette.move_to((water[i], Vector(0, 0, 30))).aspirate(30)
-		pipette.aspirate(50, water[i])
-		pipette.move_to((dish[i], Vector(x1, y1, 0))).aspirate(50)
-#		pipette.aspirate(50, dish[i])
-		pipette.dispense(200, samples[i].well(j)).blow_out()
-	pipette.drop_tip(trash)
-	i = i + 1
+current_cycle = 0
+while current_cycle < cycles:
+	i = 0
+	while i < 3:
+		pipette.pick_up_tip(rack.wells(i))
+		j = 0
+		while j < 1:
+			pipette.move_to((water[i], Vector(0, 0, 30))).aspirate(30)
+			pipette.aspirate(50, water[i])
+			pipette.aspirate(50, dish[i])
+			pipette.dispense(200, samples[i].well(j)).blow_out()
+			j = j + 1
+		pipette.drop_tip(trash)
+		i = i + 1
+		print('Cycle #{} complt'.format(current_cycle))
+		sleep(delay_between_cylces)
+
+robot.home()
 
 #pipette.transfer(100, samples_slots('A1'), samples_slots('B1'))
